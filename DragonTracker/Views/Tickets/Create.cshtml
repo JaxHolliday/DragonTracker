@@ -1,0 +1,91 @@
+﻿@model DragonTracker.Models.Ticket
+
+@{
+    ViewData["Title"] = "Create your ticket";
+}
+
+<br />
+
+<div class="row">
+    <div class="col">
+        <!-- general form elements -->
+        <div class="wrapper">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="fas fa-wrench"></i>
+                        Create your Ticket
+                    </h3>
+                    
+                </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+                <section class="content">
+                    <form asp-action="Create" asp-controller="Tickets">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="DeveloperUserId" />
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label asp-for="Title" class="control-label"></label>
+                                <input asp-for="Title" class="form-control" />
+                                <span asp-validation-for="Title" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label asp-for="Description" class="control-label"></label>
+                                <input asp-for="Description" class="form-control" />
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label asp-for="ProjectId" class="control-label"></label>
+                                <select asp-for="ProjectId" class="form-control" asp-items="ViewBag.ProjectId"></select>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label asp-for="TicketTypeId" class="control-label"></label>
+                                <select asp-for="TicketTypeId" class="form-control" asp-items="ViewBag.TicketTypeId"></select>
+                            </div>
+                        </div>
+                        @if (User.IsInRole("Admin") || User.IsInRole("ProjectManager"))
+                        {
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label asp-for="TicketPriorityId" class="control-label"></label>
+                                    <select asp-for="TicketPriorityId" class="form-control" asp-items="ViewBag.TicketPriorityId"></select>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label asp-for="TicketStatusId" class="control-label"></label>
+                                    <select asp-for="TicketStatusId" class="form-control" asp-items="ViewBag.TicketStatusId"></select>
+                                </div>
+                            </div>
+                        }
+                        @*<div class="form-group">
+                            <label asp-for="OwnerUserId" class="control-label"></label>
+                            <select asp-for="OwnerUserId" class ="form-control" asp-items="ViewBag.OwnerUserId"></select>
+                            </div>*@
+                        @*<div class="form-group">
+                                <label asp-for="DeveloperUserId" class="control-label"></label>
+                                <select asp-for="DeveloperUserId" class="form-control" asp-items="ViewBag.DeveloperUserId"></select>
+                            </div>*@
+                        <div class="card-body">
+                            <div class="form-group">
+                                <input type="submit" value="Create" class="btn btn-primary btn-sm" />
+                                <a asp-action="Index" class="btn btn-primary btn-sm">Back to List</a>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

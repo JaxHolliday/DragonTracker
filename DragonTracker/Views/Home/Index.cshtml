@@ -1,0 +1,228 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = null;
+
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    @* Favicon *@
+    <link rel="apple-touch-icon" sizes="180x180" href="~/Images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="~/Images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/Images/favicon-16x16.png">
+
+    <!-- Google Fonts -->
+    <link href="//Fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="~/LandingCSS/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/LandingCSS/icofont.min.css" rel="stylesheet" />
+    <link href="~/LandingCSS/boxicons.min.css" rel="stylesheet" />
+    <link href="~/LandingCSS/venobox.css" rel="stylesheet" />
+    <link href="~/LandingCSS/owl.carousel.min.css" rel="stylesheet" />
+    <link href="~/LandingCSS/aos.css" rel="stylesheet" />
+
+    <!-- Template Main CSS File -->
+    <link href="~/LandingCSS/style.css" rel="stylesheet" />
+
+    <style>
+        #hero {
+            width: 100%;
+            height: 100vh;
+            background-image: url("../Images/dragon.png");
+            background-size: cover;
+        }
+
+            #hero:before {
+                content: "";
+                background: rgba(5, 13, 24, 0.3);
+                position: absolute;
+                bottom: 0;
+                top: 0;
+                left: 0;
+                right: 0;
+                z-index: 1;
+            }
+
+            #hero .hero-container {
+                position: relative;
+                z-index: 2;
+                min-width: 300px;
+            }
+
+            #hero h1 {
+                margin: 0 0 10px 0;
+                font-size: 64px;
+                font-weight: 700;
+                line-height: 56px;
+                color: #fff;
+            }
+
+            #hero p {
+                color: #fff;
+                margin-bottom: 50px;
+                font-size: 26px;
+                font-family: "Poppins", sans-serif;
+            }
+
+                #hero p span {
+                    color: #fff;
+                    padding-bottom: 4px;
+                    letter-spacing: 1px;
+                    border-bottom: 3px solid #149ddd;
+                }
+
+            #hero h2 {
+                font-size: 18px;
+                line-height: 24px;
+                margin-bottom: 30px;
+            }
+        
+    </style>
+
+</head>
+<body>
+
+    <!-- ======= Mobile nav toggle button ======= -->
+    <button type="button" class="mobile-nav-toggle d-xl-none"><i class="bx bx-menu"></i></button>
+
+    <!-- ======= Header ======= -->
+    <header id="header">
+        <div class="d-flex flex-column">
+
+            <nav class="nav-menu">
+                <h2 class="text-light">DragonTracker</h2>
+                <br />
+                <ul>
+                    <li><a href="https://github.com/JaxHolliday/DragonTrackerBT" target="_blank"><i class="bx bxl-github"></i> GitHub Repo</a></li>
+                    <li><a href="https://jackson-hollidays-portfolio.netlify.app/" target="_blank"><i class="bx bx-book-content"></i> Portfolio</a></li>
+                    <li><a href="#hero"><i class="bx bx-home"></i> <span>Home</span></a></li>
+                    <li><a href="#about"><i class="bx bx-info-circle"></i> <span>About the Program</span></a></li>
+                    <li><a href="#facts"><i class="bx bx-file-blank"></i> <span>Includes</span></a></li>
+                    <li><a href="#skills"><i class="bx bx-wrench"></i> Made With</a></li>
+                    <li><a href="/Identity/Account/Register"><i class="bx bx-accessibility"></i> Register</a></li>
+                    <li><a href="/Identity/Account/Login"><i class="bx bx-user-check"></i> Login</a></li>
+                </ul>
+            </nav><!-- .nav-menu -->
+            <button type="button" class="mobile-nav-toggle d-xl-none"><i class="icofont-navigation-menu"></i></button>
+
+        </div>
+    </header><!-- End Header -->
+    <!-- ======= Hero Section ======= -->
+    <section id="hero" class="d-flex flex-column justify-content-center align-items-center">
+        <div class="hero-container" data-aos="fade-in">
+            <h1>DragonTracker</h1>
+            @*<p>I <span class="typed" data-typed-items="Solve, Developer, Freelancer, PC Enthusiast"></span></p>*@
+        </div>
+    </section><!-- End Hero -->
+
+    <main id="main">
+
+        <!-- ======= About Section ======= -->
+        <section id="about" class="about">
+            <div class="container">
+
+                <div class="section-title">
+                    <h2>About DragonTracker</h2>
+                    <p>
+                        The DragonTracker is a Web-based software application designed to mirror any of a wide variety of bug tracking software systems in use by
+                        corporations throughout world. If a company develops software, whether for in-house use or distribution, it uses a bug tracking system to
+                        maintain an accurate record of the software development process on a per-project basis.
+                    </p>
+                    <br />
+                    <div>
+                        <img src="~/Images/Screen1.png" class="float-md-none" style="width: 800px;height: 400px;display: block;margin-left:
+                        auto;margin-right: auto;" />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-4" data-aos="fade-right">
+                        <img src="assets/img/profile-img.jpg" class="img-fluid" alt="">
+                    </div>
+
+                </div>
+
+            </div>
+        </section><!-- End About Section -->
+        <!-- ======= Facts Section ======= -->
+        <section id="facts" class="facts">
+            <div class="container">
+
+                <div class="section-title">
+                    <h2>Includes</h2>
+                    <p>
+                        Important areas in the project include a clean, well functioning Ticket Details view, easy-to-use Manage User View
+                        and if your wanting to mess around, Demo Users for the four main roles excluding new-user.
+                    </p>
+                </div>                
+                <div class="row">
+                    <div class="col">
+                        <img src="~/Images/Login.png" class="float-left" style="width: 800px;height: 500px;display: block;" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <img src="~/Images/Screen3.png" class="float-right" style="width: 800px;height: 500px;display: block;" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <img src="~/Images/Scrren4.png" class="float-left" style="width: 800px;height: 500px;display: block;" />
+                    </div>
+                </div>
+
+            </div>
+        </section><!-- End Facts Section -->
+        <!-- ======= Skills Section ======= -->
+        <section id="skills" class="skills section-bg">
+            <div class="container">
+
+                <div class="section-title">
+                    <h2>Made With</h2>
+                    <p>Project uses the following in it's creation</p>
+                </div>
+
+                <div class="row skills-content">
+                    <img src="https://img.icons8.com/color/144/000000/css3.png" />
+                    <img src="https://img.icons8.com/color/144/000000/html-5.png" />
+                    <img src="https://img.icons8.com/color/144/000000/javascript.png" />
+                    <img src="https://img.icons8.com/color/144/000000/c-sharp-logo.png" />
+                    <img src="https://img.icons8.com/color/144/000000/postgreesql.png" />
+                    <img src="https://img.icons8.com/color/144/000000/visual-studio.png" />
+                    <img src="https://img.icons8.com/color/144/000000/heroku.png" />
+                </div>
+
+            </div>
+        </section><!-- End Skills Section -->
+    </main><!-- End #main -->
+
+
+    <a href="#" class="back-to-top"><i class="bx bx-up-arrow"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="~/LandingJS/jquery.min.js"></script>
+    <script src="~/LandingJS/bootstrap.bundle.min.js"></script>
+    <script src="~/LandingJS/jquery.easing.min.js"></script>
+    <script src="~/LandingJS/validate.js"></script>
+    <script src="~/LandingJS/jquery.waypoints.min.js"></script>
+    <script src="~/LandingJS/counterup.min.js"></script>
+    <script src="~/LandingJS/isotope.pkgd.min.js"></script>
+    <script src="~/LandingJS/venobox.min.js"></script>
+    <script src="~/LandingJS/owl.carousel.min.js"></script>
+    <script src="~/LandingJS/typed.min.js"></script>
+    <script src="~/LandingJS/aos.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="~/LandingJS/main.js"></script>
+
+</body>
+
+</html>

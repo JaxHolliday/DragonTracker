@@ -1,0 +1,78 @@
+﻿@using DragonTracker.Helpers
+@model IEnumerable<DragonTracker.Models.TicketAttachment>
+
+
+@{
+    ViewData["Title"] = "All Attachments";
+}
+
+<br />
+<div class="card card-primary">
+    <div class="card-header">
+        <h3 class="card-title">
+            <i class="fas fa-ticket-alt"></i>
+            All Attachments
+        </h3>
+        <div class="card-tools">
+            <a asp-action="Create" class="btn btn-success btn-sm">
+                <i class="fas fa-plus">
+                </i>
+                Create Attachment
+            </a>
+            
+        </div>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <table id="tckTble" class="table">
+            <thead>
+                <tr>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.FileData)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Description)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Created)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Ticket)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.User)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+
+                        <td>
+                            <img src="@ImageHelper.DecodeImage(item.FileData, item.FilePath)" class="img-fluid" />
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Created)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Ticket.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.User.FullName)
+                        </td>
+                        <td>                                                     
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <!-- /.card-body -->
+</div>

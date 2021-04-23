@@ -1,0 +1,426 @@
+﻿@model DragonTracker.Models.Ticket
+@using DragonTracker.Helpers
+@using DragonTracker.Services
+@inject IBTFileService BTFileService
+
+
+@{
+    ViewData["Title"] = "Ticket Details";
+}
+
+<style>
+    .file-container {
+        min-height: 200px;
+        background-color: ghostwhite;
+    }
+</style>
+
+<h1>Details for @Model.Title</h1>
+<br />
+
+<div class="row">
+    <div class="col">
+        <div class="card card-info">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <i class="fas fa-info"></i>
+                    Ticket Description
+                </h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+
+                <dl class="row">
+                    <dt class="col-sm-6">
+                        @Html.DisplayNameFor(model => model.Title)
+                    </dt>
+                    <dd class="col-sm-6">
+                        @Html.DisplayFor(model => model.Title)
+                    </dd>
+                    <dt class="col-sm-6">
+                        @Html.DisplayNameFor(model => model.Description)
+                    </dt>
+                    <dd class="col-sm-6">
+                        @Html.DisplayFor(model => model.Description)
+                    </dd>
+                    <dt class="col-sm-6">
+                        @Html.DisplayNameFor(model => model.Project)
+                    </dt>
+                    <dd class="col-sm-6">
+                        @Html.DisplayFor(model => model.Project.Name)
+                    </dd>
+                    <dt class="col-sm-6">
+                        @Html.DisplayNameFor(model => model.TicketType)
+                    </dt>
+                    <dd class="col-sm-6">
+                        @Html.DisplayFor(model => model.TicketType.Name)
+                    </dd>
+                    <dt class="col-sm-6">
+                        @Html.DisplayNameFor(model => model.TicketPriority)
+                    </dt>
+                    <dd class="col-sm-6">
+                        @Html.DisplayFor(model => model.TicketPriority.Name)
+                    </dd>
+                    <dt class="col-sm-6">
+                        @Html.DisplayNameFor(model => model.TicketStatus)
+                    </dt>
+                    <dd class="col-sm-6">
+                        @Html.DisplayFor(model => model.TicketStatus.Name)
+                    </dd>
+                    <dt class="col-sm-6">
+                        @Html.DisplayNameFor(model => model.OwnerUser)
+                    </dt>
+                    <dd class="col-sm-6">
+                        @Html.DisplayFor(model => model.OwnerUser.FullName)
+                    </dd>
+                    <dt class="col-sm-6">
+                        @Html.DisplayNameFor(model => model.DeveloperUser)
+                    </dt>
+                    <dd class="col-sm-6">
+                        @Html.DisplayFor(model => model.DeveloperUser.FullName)
+                    </dd>
+                </dl>
+                <div>
+                    <a asp-action="Index" class="btn btn-primary btn-sm">Back to List</a>
+                </div>
+            </div>
+            <!-- /.card-body -->
+        </div>
+    </div>
+    <div class="col-md-6">
+        <!-- general form elements -->
+        <div class="card card-info">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <i class="fas fa-wrench"></i>
+                    Edit your Ticket
+                </h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
+                </div>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form role="form" asp-action="Edit" asp-controller="Tickets">
+                <div class="card-body">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="ProjectId" />
+                    <input type="hidden" asp-for="Created" />
+                    <input type="hidden" asp-for="OwnerUserId" />
+                    <div class="form-group">
+                        <label asp-for="Title" class="control-label"></label>
+                        <input asp-for="Title" class="form-control" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Description" class="control-label"></label>
+                        <input asp-for="Description" class="form-control" />
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="TicketTypeId" class="control-label"></label>
+                        <select asp-for="TicketTypeId" class="form-control" asp-items="ViewBag.TicketTypeId"></select>
+                        <span asp-validation-for="TicketTypeId" class="text-danger"></span>
+                    </div>
+                    @if (User.IsInRole("Admin") || User.IsInRole("ProjectManager"))
+                    {
+                        <div class="form-group">
+                            <label asp-for="TicketPriorityId" class="control-label"></label>
+                            <select asp-for="TicketPriorityId" class="form-control" asp-items="ViewBag.TicketPriorityId"></select>
+                            <span asp-validation-for="TicketPriorityId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="TicketStatusId" class="control-label"></label>
+                            <select asp-for="TicketStatusId" class="form-control" asp-items="ViewBag.TicketStatusId"></select>
+                            <span asp-validation-for="TicketStatusId" class="text-danger"></span>
+                        </div>
+                    }
+                    <div class="form-group">
+                        <label asp-for="DeveloperUserId" class="control-label"></label>
+                        <select asp-for="DeveloperUserId" class="form-control" asp-items="ViewBag.DeveloperUserId"></select>
+                        <span asp-validation-for="DeveloperUserId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-primary btn-sm" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<br />
+<div class="card card-info">
+    <div class="card-header">
+        <h3 class="card-title">
+            <i class="fas fa-comment"></i>
+            Comments
+        </h3>
+        <div class="card-tools">
+            @if (User.IsInRole("Admin") || User.IsInRole("ProjectManager") || User.IsInRole("Developer"))
+            {
+                <a asp-action="Create" asp-controller="TicketComments" class="btn btn-success btn-sm">
+                    <i class="fas fa-plus"></i>
+                    Add a Comment
+                </a>
+            }
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                <i class="fas fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
+        </div>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <table id="tckTble" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        Comment
+                    </th>
+                    <th>
+                        Created
+                    </th>
+                    <th>
+                        Ticket
+                    </th>
+                    <th>
+                        User
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Comments)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Comment)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Created)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Ticket.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.User.FullName)
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-controller="TicketComments" asp-route-id="@item.Id" class="btn btn-success btn-sm">View</a>
+                            <a asp-action="Details" asp-controller="TicketComments" asp-route-id="@item.Id" class="btn btn-info btn-sm">Details</a>
+                            <a asp-action="Delete" asp-controller="TicketComments" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <!-- /.card-body -->
+</div>
+
+<br />
+<div class="row">
+    <div class="col">
+        <div class="card card-indigo">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <i class="fas fa-paperclip"></i>
+                    Attachments
+                </h3>
+                <br />
+
+                <div class="card-tools">
+                    @* Short hand for hidden *@
+                    <form asp-action="Create" asp-controller="TicketAttachments" method="post" enctype="multipart/form-data">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        @Html.Hidden("TicketId", Model.Id)
+
+                        <div class="media-body ml-3">
+                            <input type="file" name="FormFile" />
+                            <label>
+                                Description
+                                <input asp-for="@Model.Attachments.FirstOrDefault().Description" type="text" class="form-control" />
+                            </label>
+                            <input type="submit" value="Submit" class="btn btn-success btn-sm"  />
+
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <table id="tckTble" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                Image
+                            </th>
+                            <th>
+                                Description
+                            </th>
+                            <th>
+                                Created
+                            </th>
+                            <th>
+                                Ticket
+                            </th>
+                            <th>
+                                User
+                            </th>
+                            <th>
+
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Attachments)
+                        {
+                            <tr>
+                                <td>
+                                    <img src="@BTFileService.GetFileIcon(item.FileName)" class="img-fluid" style="width: 30px;" />
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Description)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Created)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Ticket.Title)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.User.FullName)
+                                </td>
+                                @if (User.IsInRole("Admin") || User.IsInRole("ProjectManager"))
+                                {
+                                    <td>
+                                        <a asp-action="Delete" asp-route-id="@item.Id" asp-controller="TicketAttachments" class="btn btn-danger btn-sm">Delete</a>
+                                    </td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
+        </div>
+    </div>
+</div>
+
+<br />
+<div class="card card-indigo">
+    <div class="card-header">
+        <h4>Attachments Download</h4>
+    </div>
+</div>
+
+<br />
+<div class="row clearfix file-container">
+
+    @foreach (TicketAttachment item in Model.Attachments)
+    {
+        <div class="col-sm-3">
+            <div class="card">
+                <div class="file">
+                    <a asp-action="DownloadFile" asp-route-id="@item.Id">
+                        <div class="icon">
+                            <img src="@BTFileService.GetFileIcon(item.FileName)" style="height:60px;width:60px" />
+                        </div>
+                        <div class="file-name">
+                            <p class="m-b-5 text-muted">@System.IO.Path.GetFileNameWithoutExtension(item.FileName)</p>
+                            <small>Size: @BTFileService.FormatFileSize(item.FileData.Length) <span class="date text-muted">@item.Created.ToString("MMM dd, yyyy")</span></small>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<br />
+
+<div class="card card-indigo">
+    <div class="card-header">
+        <h3 class="card-title">
+            <i class="fas fa-history"></i>
+            History
+        </h3>
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                <i class="fas fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
+        </div>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <table id="tckTble" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        Property
+                    </th>
+                    <th>
+                        Old Value
+                    </th>
+                    <th>
+                        New Value
+                    </th>
+                    <th>
+                        Created
+                    </th>
+                    <th>
+                        Ticket
+                    </th>
+                    <th>
+                        User
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Histories)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Property)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.OldValue)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NewValue)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Created)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Ticket.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.User.FullName)
+                        </td>
+                        <td>
+                            @if (User.IsInRole("Admin") || User.IsInRole("ProjectManager"))
+                            {
+                                <a asp-action="Details" asp-controller="TicketHistories" asp-route-id="@item.Id" class="btn btn-info btn-sm">Details</a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <!-- /.card-body -->
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

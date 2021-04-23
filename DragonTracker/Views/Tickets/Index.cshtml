@@ -1,0 +1,124 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using DragonTracker.Services
+@model IEnumerable<DragonTracker.Models.Ticket>
+@inject UserManager<BTUser> UserManager
+@inject IBTAccessService AccessService
+
+
+@{
+    ViewData["Title"] = "Tickets";
+    var userId = UserManager.GetUserId(User);
+    var roleName = (await UserManager.GetRolesAsync(await UserManager.GetUserAsync(User))).FirstOrDefault();
+}
+
+<br />
+<div class="card card-primary">
+    <div class="card-header">
+        <h3 class="card-title">
+            <i class="fas fa-ticket-alt"></i>
+            Ticket List
+        </h3>
+        <div class="card-tools">
+            @if (User.IsInRole("Admin") || User.IsInRole("ProjectManager") || User.IsInRole("Developer") || User.IsInRole("Submitter"))
+            {
+                <a asp-action="Create" class="btn btn-success btn-sm">
+                    <i class="fas fa-plus"></i>
+                    Create Ticket
+                </a>
+            }
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                <i class="fas fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
+        </div>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <table id="tckTble" class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayName("Title")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Description")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Created")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Updated")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Project")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Ticket Type")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Ticket Priority")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Ticket Status")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Owner User")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Developer User")
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Created)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Updated)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Project.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TicketType.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TicketPriority.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TicketStatus.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.OwnerUser.FullName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DeveloperUser.FullName)
+                        </td>
+                        <td>
+                            @if (await AccessService.CanInteractTicket(userId, item.Id, roleName))
+                            {
+                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">
+                                    <i class="fas fa-folder"></i>
+                                    Details
+                                </a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <!-- /.card-body -->
+</div>
+
+

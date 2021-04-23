@@ -1,0 +1,100 @@
+﻿@model IEnumerable<DragonTracker.Models.Project>
+
+@{
+    ViewData["Title"] = "All Projects";
+}
+
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col">
+                <h1>Projects</h1>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<div class="wrapper">
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">
+                <i class="fas fa-book-open"></i>
+                Projects
+            </h3>
+            <div class="card-tools">
+                <a asp-action="Create" class="btn btn-success btn-sm">
+                    <i class="fas fa-plus">
+                    </i>
+                    Add Project
+                </a>
+                <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>                
+            </div>
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Users)
+                        </th>
+                        @*<th>
+                                @Html.DisplayNameFor(model => model.ImagePath)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ImageData)
+                            </th>*@
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Users)
+                            </td>
+                            @*<td>
+                                    @Html.DisplayFor(modelItem => item.ImagePath)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ImageData)
+                                </td>*@
+                            <td>
+                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary btn-sm">
+                                    <i class="fas fa-folder">
+                                    </i>
+                                    View
+                                </a>
+
+                                @if (User.IsInRole("Admin") || User.IsInRole("ProjectManager"))
+                                {
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">
+                                        <i class="fas fa-trash">
+                                        </i>
+                                        Delete
+                                    </a>
+                                    <a asp-action="AssignUsers" asp-route-id="@item.Id" class="btn btn-info btn-sm">
+                                        <i class="fas fa-plus">
+                                        </i>
+                                        Add User
+                                    </a>
+                                    <a asp-action="RemoveUsers" asp-route-id="@item.Id" class="btn btn-info btn-sm">
+                                        <i class="fas fa-minus">
+                                        </i>
+                                        Remove User
+                                    </a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
