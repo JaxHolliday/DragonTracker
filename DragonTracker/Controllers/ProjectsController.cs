@@ -41,6 +41,7 @@ namespace DragonTracker.Controllers
             }
 
             Project project = await _context.Projects
+                .Include(p => p.Users)
                 .Include(p => p.Tickets)                
                 .ThenInclude(t => t.TicketType)
                 .Include(p => p.Tickets)
@@ -73,8 +74,6 @@ namespace DragonTracker.Controllers
         {
             if (ModelState.IsValid)
             {
-
-
                 _context.Add(project);
                 await _context.SaveChangesAsync();
                 //ProjectUser record = new ProjectUser { UserId = _userManager.GetUserId(User), ProjectId = }
