@@ -4,7 +4,9 @@
     <TargetFramework>net5.0</TargetFramework>
     <UserSecretsId>aspnet-DragonTracker-E46BA64B-2CF3-4E99-B55B-2FF560322EF6</UserSecretsId>
     <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
-    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+	  <BaseOutputPath>bin</BaseOutputPath>
+	  <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+	  <InvariantGlobalization>true</InvariantGlobalization>	  
   </PropertyGroup>
 
   <ItemGroup>
