@@ -54,6 +54,7 @@ namespace DragonTracker
             services.AddScoped<IBTHistoriesService, BTHistoriesService>();
             services.AddScoped<IBTAccessService, BTAccessService>();
             services.AddScoped<IBTFileService, BTFileService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <UserSecretsId>aspnet-DragonTracker-E46BA64B-2CF3-4E99-B55B-2FF560322EF6</UserSecretsId>
     <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
 	  <BaseOutputPath>bin</BaseOutputPath>
@@ -41,6 +41,8 @@
     <PackageReference Include="MimeKit" Version="2.11.0" />
     <PackageReference Include="Npgsql" Version="5.0.4" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.5.1" />
+    <PackageReference Include="Microsoft.AspNetCore.JsonPatch" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="6.0.0" />
   </ItemGroup>
 
   <ItemGroup>

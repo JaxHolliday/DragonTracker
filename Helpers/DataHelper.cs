@@ -75,6 +75,7 @@ namespace DragonTracker.Helpers
             {
                 Console.WriteLine($"Exception while running Manage Data => {ex}");
             }
+
         }
 
         public static async Task SeedRolesAsync(RoleManager<IdentityRole> roleManager)
